@@ -19,19 +19,15 @@ func (u *UnionFind) Open(i int) {
 
 	// Check and join with adjacent open sites
 	if i-1 >= 0 && i%u.N != 0 && u.isOpen(i-1) { // left
-		fmt.Printf("Union(%d, %d)\n", i, i-1)
 		u.union(i, i-1)
 	}
 	if i+1 < len(u.BlockedGrid) && (i+1)%u.N != 0 && u.isOpen(i+1) { // right
 		u.union(i, i+1)
-		fmt.Printf("Union(%d, %d)\n", i, i+1)
 	}
 	if i-u.N >= 0 && u.isOpen(i-u.N) { // top
-		fmt.Printf("Union(%d, %d)\n", i, i-u.N)
 		u.union(i, i-u.N)
 	}
 	if i+u.N < len(u.BlockedGrid) && u.isOpen(i+u.N) { // bottom
-		fmt.Printf("Union(%d, %d)\n", i, i+u.N)
 		u.union(i, i+u.N)
 	}
 }
@@ -78,46 +74,36 @@ func (u *UnionFind) percolationPath() bool { // Todo: make the path that percola
 func NewUnionFind(n int) *UnionFind {
 	id := make([]int, n*n+2)
 	sz := make([]int, n*n+2)
-	grid := make([]bool, n*n)
+	blockedGrid := make([]bool, n*n)
 
-	initializeIdMatrix(id)
-	initializeSizeMatrix(sz)
-	initializeGridMatrix(grid)
+	for i := range blockedGrid {
+		blockedGrid[i] = true
+		id[i] = i
+		sz[i] = 1
+	}
+
+	// Adds virtual top and bottom site
+	id[n*n], id[n*n+1] = n*n, n*n+1
+	sz[n*n], sz[n*n+1] = 1, 1
 
 	u := &UnionFind{
 		Id:          id,
 		Sz:          sz,
-		BlockedGrid: grid,
+		BlockedGrid: blockedGrid,
 		N:           n,
 	}
 
+	// Top virtual site union with first row
 	for i := 0; i < n; i++ {
 		u.union(i, n*n)
 	}
 
+	// Bottom virtual site union with last row
 	for i := n * (n - 1); i < n*n; i++ {
 		u.union(i, n*n+1)
 	}
 
 	return u
-}
-
-func initializeIdMatrix(matrix []int) {
-	for i := range matrix {
-		matrix[i] = i
-	}
-}
-
-func initializeSizeMatrix(matrix []int) {
-	for i := range matrix {
-		matrix[i] = 1
-	}
-}
-
-func initializeGridMatrix(matrix []bool) {
-	for i := range matrix {
-		matrix[i] = true
-	}
 }
 
 func (u *UnionFind) printIdMatrix() {
