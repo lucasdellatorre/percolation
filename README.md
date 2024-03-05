@@ -25,7 +25,7 @@ The model. We model a percolation system using an n-by-n grid of sites. Each sit
 </p>
 
 
-# What is a weighted quick union with path compression implementation
+# What is a weighted quick union with path compression?
 
 Union find is a data structure that connects sets. We are using a particular implementation called weighted quick union with path compression, which has:
 
