@@ -35,7 +35,7 @@ Union find is a data structure that connects sets. We are using a particular imp
 
 # References
 
-Princeton Universtiy
+Princeton University
 * https://introcs.cs.princeton.edu/java/24percolation/
 * https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php
 * Algorithms (4th Edition) 4th Edition - Cap 1.5
