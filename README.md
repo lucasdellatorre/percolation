@@ -29,8 +29,8 @@ The model. We model a percolation system using an n-by-n grid of sites. Each sit
 
 Union find is a data structure that connects sets. We are using a particular implementation called weighted quick union with path compression, which has:
 
-Constructor: O(N)
-Union: O(log N)
-Find: almost O(1)
+* Constructor: O(N)
+* Union: O(log N)
+* Find: almost O(1)
 
 
