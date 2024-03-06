@@ -69,18 +69,25 @@ func Run(n int) {
 
 	subtitles := []Subtitle{
 		{
-			Text:       "open site",
-			TextColor:  color.Black,
+			Text:       "full open site (connected to top)",
+			TextColor:  colornames.Black,
 			TextVector: pixel.V(startX+10+40, 130),
-			RectColor:  color.White,
+			RectColor:  colornames.Skyblue,
 			Rect:       pixel.R(startX, 160, startY+40, 120),
 		},
 		{
-			Text:       "blocked site",
-			TextColor:  color.Black,
+			Text:       "empty open site (not connected to top)",
+			TextColor:  colornames.Black,
 			TextVector: pixel.V(startX+10+40, 80),
-			RectColor:  color.Black,
+			RectColor:  colornames.White,
 			Rect:       pixel.R(startX, 120-10, startY+40, 80-10),
+		},
+		{
+			Text:       "blocked site",
+			TextColor:  colornames.Black,
+			TextVector: pixel.V(startX+10+40, 30),
+			RectColor:  colornames.Black,
+			Rect:       pixel.R(startX, 70-10, startY+40, 30-10),
 		},
 	}
 
