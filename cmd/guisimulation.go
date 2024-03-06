@@ -25,7 +25,7 @@ func RunSimulationGui() *cobra.Command {
 			}
 
 			pixelgl.Run(func() {
-				guisimulation.Run(n)
+				guisimulation.NewRun(n)
 			})
 		},
 	}
