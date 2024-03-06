@@ -121,7 +121,11 @@ func Run(n int) {
 				if u.BlockedGrid[j] {
 					animationCells[j].Color = colornames.Black
 				} else {
-					animationCells[j].Color = colornames.White
+					if u.IsConnectedToTop(j) {
+						animationCells[j].Color = colornames.Skyblue
+					} else {
+						animationCells[j].Color = colornames.White
+					}
 				}
 
 				if j > 0 && j%n == 0 {
@@ -153,6 +157,79 @@ func Run(n int) {
 			// Update window
 			win.Update()
 		}
+
+		fmt.Println(u.Sz[n*n])
+		fmt.Println(u.Sz[n*n+1])
+
+		// if u.Sz[n*n] > u.Sz[n*n+1] {
+		// 	var minX, maxX = startX - CELL_SIZE, startY
+		// 	var minY, maxY = startY + matrixHeight, startY + matrixHeight - CELL_SIZE
+		// 	for j := range u.BlockedGrid {
+		// 		if !u.BlockedGrid[j] && u.IsConnectedToTop(j) {
+		// 			fmt.Println("Entrou 1")
+		// 			animationCells[j].Color = colornames.Skyblue
+		// 		}
+
+		// 		if j > 0 && j%n == 0 {
+		// 			minX = startX
+		// 			maxX = startX + CELL_SIZE
+		// 			minY = minY - CELL_SIZE
+		// 			maxY = maxY - CELL_SIZE
+		// 		} else {
+		// 			minX = minX + CELL_SIZE
+		// 			maxX = maxX + CELL_SIZE
+		// 		}
+		// 		animationCells[j].Rect = pixel.R(minX, minY, maxX, maxY)
+
+		// 		// Draw cell
+		// 		imd := imdraw.New(nil)
+		// 		imd.Color = animationCells[j].Color
+		// 		imd.Push(animationCells[j].Rect.Min, animationCells[j].Rect.Max)
+		// 		imd.Rectangle(0)
+		// 		imd.Draw(win)
+
+		// 		// Draw borderline
+		// 		imd = imdraw.New(nil)
+		// 		imd.Color = colornames.Black
+		// 		imd.Push(animationCells[j].Rect.Min, animationCells[j].Rect.Max)
+		// 		imd.Rectangle(1)
+		// 		imd.Draw(win)
+		// 	}
+		// } else {
+		// 	var minX, maxX = startX - CELL_SIZE, startY
+		// 	var minY, maxY = startY + matrixHeight, startY + matrixHeight - CELL_SIZE
+		// 	for j := range u.BlockedGrid {
+		// 		if !u.BlockedGrid[j] && u.IsConnectedToBottom(j) {
+		// 			fmt.Println("Entrou 2")
+		// 			animationCells[j].Color = colornames.Skyblue
+		// 		}
+		// 		if j > 0 && j%n == 0 {
+		// 			minX = startX
+		// 			maxX = startX + CELL_SIZE
+		// 			minY = minY - CELL_SIZE
+		// 			maxY = maxY - CELL_SIZE
+		// 		} else {
+		// 			minX = minX + CELL_SIZE
+		// 			maxX = maxX + CELL_SIZE
+		// 		}
+		// 		animationCells[j].Rect = pixel.R(minX, minY, maxX, maxY)
+
+		// 		// Draw cell
+		// 		imd := imdraw.New(nil)
+		// 		imd.Color = animationCells[j].Color
+		// 		imd.Push(animationCells[j].Rect.Min, animationCells[j].Rect.Max)
+		// 		imd.Rectangle(0)
+		// 		imd.Draw(win)
+
+		// 		// Draw borderline
+		// 		imd = imdraw.New(nil)
+		// 		imd.Color = colornames.Black
+		// 		imd.Push(animationCells[j].Rect.Min, animationCells[j].Rect.Max)
+		// 		imd.Rectangle(1)
+		// 		imd.Draw(win)
+		// 	}
+		// }
+
 		fmt.Println("Percolates", u.Percolates())
 		time.Sleep(time.Second * 5)
 	}

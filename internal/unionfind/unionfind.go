@@ -67,8 +67,12 @@ func (u *UnionFind) Percolates() bool {
 	return u.connection(u.N*u.N, u.N*u.N+1)
 }
 
-func (u *UnionFind) percolationPath() bool { // Todo: make the path that percolates as blue
-	return true
+func (u *UnionFind) IsConnectedToTop(i int) bool { // Todo: make the path that percolates as blue
+	return u.root(i) == u.Id[u.N*u.N]
+}
+
+func (u *UnionFind) IsConnectedToBottom(i int) bool { // Todo: make the path that percolates as blue
+	return u.root(i) == u.Id[u.N*u.N+1]
 }
 
 func NewUnionFind(n int) *UnionFind {
@@ -95,12 +99,12 @@ func NewUnionFind(n int) *UnionFind {
 
 	// Top virtual site union with first row
 	for i := 0; i < n; i++ {
-		u.union(i, n*n)
+		u.union(n*n, i)
 	}
 
 	// Bottom virtual site union with last row
 	for i := n * (n - 1); i < n*n; i++ {
-		u.union(i, n*n+1)
+		u.union(n*n+1, i)
 	}
 
 	return u
@@ -141,4 +145,6 @@ func (u *UnionFind) PrintUf() {
 	u.printGridMatrix()
 	fmt.Println()
 	fmt.Println("Percolates?", u.Percolates())
+	fmt.Println("Virtual top site:", u.Sz[u.N*u.N])
+	fmt.Println("Virtual bottom site:", u.Sz[u.N*u.N+1])
 }
