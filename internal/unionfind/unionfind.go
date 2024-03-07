@@ -14,7 +14,6 @@ func (u *UnionFind) isOpen(i int) bool {
 }
 
 func (u *UnionFind) Open(i int) {
-	fmt.Println("Open", i)
 	u.BlockedGrid[i] = false
 
 	// Check and join with adjacent open sites
