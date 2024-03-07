@@ -104,7 +104,31 @@ func Run(n int) {
 
 	for !win.Closed() {
 		win.Update()
+		nText.Draw(win, pixel.IM.Scaled(nText.Orig, 1.5))
+		for _, subtitle := range subtitles {
+			imd := imdraw.New(nil)
+			imd.Color = subtitle.RectColor
+			imd.Push(subtitle.Rect.Min, subtitle.Rect.Max)
+			imd.Rectangle(0)
+			imd.Draw(win)
+
+			// BorderLine
+			imd = imdraw.New(nil)
+			imd.Color = color.Black
+			imd.Push(subtitle.Rect.Min, subtitle.Rect.Max)
+			imd.Rectangle(1)
+			imd.Draw(win)
+
+			subtitleText := text.New(subtitle.TextVector, basicAtlas)
+
+			subtitleText.Color = subtitle.TextColor
+
+			fmt.Fprintln(subtitleText, subtitle.Text)
+			subtitleText.Draw(win, pixel.IM.Scaled(subtitleText.Orig, 1.5))
+		}
+
 		for i := 0; !u.Percolates(); i++ {
+			win.SetTitle(fmt.Sprintf("Percolation | Open sites %d", i))
 			pos := randomNumbers[i]
 			u.Open(pos)
 			imd := imdraw.New(nil)
