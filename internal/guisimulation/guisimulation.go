@@ -51,7 +51,7 @@ func Run(n int) {
 
 	win.Clear(colornames.White)
 
-	setSimulationMatrix(n)
+	setSimulationMatrixSpecs(n)
 
 	drawSubtitles(win, n)
 
@@ -69,7 +69,7 @@ func Run(n int) {
 			win.Update()
 		}
 
-		// Draw full open site path
+		// Draw full open site
 		for i := range u.BlockedGrid {
 			if !u.BlockedGrid[i] && u.IsConnectedToTop(i) {
 				cellStyle := Cell{Border: true, Color: colornames.Skyblue}
@@ -92,7 +92,7 @@ func initWindow() (*pixelgl.Window, error) {
 	return win, err
 }
 
-func setSimulationMatrix(n int) {
+func setSimulationMatrixSpecs(n int) {
 	CELL_SIZE = screenWidth / float64(n+n)
 
 	centerX = screenWidth / 2
@@ -109,6 +109,7 @@ func drawSubtitles(win *pixelgl.Window, n int) {
 	basicAtlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
 	nText := text.New(pixel.V(startX-125, startY+centerY-50), basicAtlas)
 	nText.Color = colornames.Black
+	fmt.Fprintf(nText, "N = %d", n)
 	nText.Draw(win, pixel.IM.Scaled(nText.Orig, 1.5))
 
 	subtitles := []Subtitle{
